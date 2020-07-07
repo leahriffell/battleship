@@ -5,4 +5,10 @@ class Cell
     @coordinate = coordinate
     @ship = ship
   end
+
+  def empty?
+    if @ship == nil
+      return true
+    end
+  end
 end
