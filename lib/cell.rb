@@ -31,11 +31,20 @@ class Cell
     @fired_upon
   end
 
-  def render
-    if @fired_upon == true && @ship == nil
-      "M"
-    else
-      "."
+  def render(ship_display = false)
+    if ship_display == true
+      if @ship != nil
+      "S"
+      else
+        "."
+      end
+    elsif ship_display == false
+      if @fired_upon == true && @ship == nil
+        "M"
+      else
+        "."
+      end
     end
   end
+  
 end
