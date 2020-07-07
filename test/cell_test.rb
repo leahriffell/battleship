@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/ship'
-require '../lib/cell'
+require_relative '../lib/ship'
+require_relative '../lib/cell'
 require "pry"
 
 class CellTest < Minitest::Test
@@ -42,4 +42,15 @@ class CellTest < Minitest::Test
     assert_equal 2, cell.ship.health
     assert_equal true, cell.fired_upon?
   end
+
+  def test_cell_can_be_missed
+    cell_1 = Cell.new("B4")
+
+    assert_equal ".", cell_1.render
+    cell_1.fire_upon
+    assert_equal "M", cell_1.render
+  end
 end
+
+# cell_2 = Cell.new("C3")
+# cruiser = Ship.new("Cruiser", 3)

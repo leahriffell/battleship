@@ -30,4 +30,12 @@ class Cell
   def fired_upon?
     @fired_upon
   end
+
+  def render
+    if @fired_upon == true && @ship == nil
+      "M"
+    else
+      "."
+    end
+  end
 end
