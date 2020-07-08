@@ -13,6 +13,14 @@ class BoardTest < Minitest::Test
     assert_instance_of Board, board
   end
 
+  def test_it_has_readable_cells
+    board = Board.new
+    board.generate_board_columns_and_rows
+
+    board.cells
+    binding.pry
+  end
+
   def test_it_has_valid_coordinates
     board = Board.new
     board.generate_board_columns_and_rows

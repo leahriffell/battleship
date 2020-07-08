@@ -1,3 +1,4 @@
+
 class Board
   attr_reader :cells
   def initialize
@@ -14,6 +15,9 @@ class Board
         coordinates <<  "#{column}#{row}"
         end
     end
+
+    @cells = Hash[coordinates.collect { |coordinate| [coordinate, Cell.new(coordinate)] } ]
+
   end
 
 end
