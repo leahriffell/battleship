@@ -1,9 +1,9 @@
-x
 require 'pry'
 class Board
   attr_reader :cells
   def initialize
   @cells = {}
+  generate_board_columns_and_rows # call method to generate cell for board.
   end
 
   def generate_board_columns_and_rows
@@ -46,4 +46,11 @@ class Board
     (column_ordinal_range.length == 1 && row_ordinal_range.length == coordinates.length || column_ordinal_range.length == coordinates.length && row_ordinal_range.length == 1)
     # binding.pry
   end
+
+  def place(ship_type, coordinates)
+    coordinates.map do |coordinate|
+      @cells[coordinate].place_ship(ship_type)
+    end
+  end
+
 end
