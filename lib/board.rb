@@ -1,4 +1,5 @@
-
+x
+require 'pry'
 class Board
   attr_reader :cells
   def initialize
@@ -23,4 +24,26 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
+  def valid_placement?(ship_type, coordinates)
+    # If rows all the same ordinal value, then column ordinal values must be different (equal to the coordinate length)
+    # If columns are all the same ordinal value, then row ordinal values must be different (equal to coordinate length)
+    # If the length of range of column ordinal values equals 1, then the length of row ordinal values must equal length of coordinates array passed in
+    column_ordinals =
+      coordinates.map do |coordinate|
+        coordinate[0].ord
+      end
+
+    row_ordinals =
+      coordinates.map do |coordinate|
+        coordinate[1].ord
+      end
+
+    column_ordinal_range = (column_ordinals.min..column_ordinals.max).to_a
+
+    row_ordinal_range = (row_ordinals.min..row_ordinals.max).to_a
+
+    ship_type.length == coordinates.length &&
+    (column_ordinal_range.length == 1 && row_ordinal_range.length == coordinates.length || column_ordinal_range.length == coordinates.length && row_ordinal_range.length == 1)
+    # binding.pry
+  end
 end
