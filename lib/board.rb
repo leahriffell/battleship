@@ -17,7 +17,10 @@ class Board
     end
 
     @cells = Hash[coordinates.collect { |coordinate| [coordinate, Cell.new(coordinate)] } ]
+  end
 
+  def valid_coordinate?(coordinate)
+    @cells.keys.include?(coordinate)
   end
 
 end
