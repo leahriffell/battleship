@@ -29,4 +29,13 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("A5")
     assert_equal false, board.valid_coordinate?("E1")
   end
+
+  def test_it_has_equal_length_and_coordinates
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
+    assert_equal false, board.valid_placement?(submarine, ["A2", "A3", "A4"])
+  end
 end
