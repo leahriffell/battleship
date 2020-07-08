@@ -28,6 +28,8 @@ class Board
     # If rows all the same ordinal value, then column ordinal values must be different (equal to the coordinate length)
     # If columns are all the same ordinal value, then row ordinal values must be different (equal to coordinate length)
     # If the length of range of column ordinal values equals 1, then the length of row ordinal values must equal length of coordinates array passed in
+    return false unless no_overlap?(coordinates)
+
     column_ordinals =
       coordinates.map do |coordinate|
         coordinate[0].ord
@@ -48,8 +50,16 @@ class Board
   end
 
   def place(ship_type, coordinates)
-    coordinates.map do |coordinate|
-      @cells[coordinate].place_ship(ship_type)
+    if valid_placement?(ship_type, coordinates)
+      coordinates.map do |coordinate|
+        @cells[coordinate].place_ship(ship_type)
+      end
+    end
+  end
+
+  def no_overlap?(coordinates)
+    coordinates.all? do |coordinate|
+      @cells[coordinate].empty?
     end
   end
 
