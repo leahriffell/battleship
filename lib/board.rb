@@ -1,9 +1,9 @@
-x
 require 'pry'
 class Board
   attr_reader :cells
   def initialize
   @cells = {}
+  generate_board_columns_and_rows # call method to generate cell for board.
   end
 
   def generate_board_columns_and_rows
@@ -28,6 +28,8 @@ class Board
     # If rows all the same ordinal value, then column ordinal values must be different (equal to the coordinate length)
     # If columns are all the same ordinal value, then row ordinal values must be different (equal to coordinate length)
     # If the length of range of column ordinal values equals 1, then the length of row ordinal values must equal length of coordinates array passed in
+    return false unless no_overlap?(coordinates)
+
     column_ordinals =
       coordinates.map do |coordinate|
         coordinate[0].ord
@@ -46,4 +48,19 @@ class Board
     (column_ordinal_range.length == 1 && row_ordinal_range.length == coordinates.length || column_ordinal_range.length == coordinates.length && row_ordinal_range.length == 1)
     # binding.pry
   end
+
+  def place(ship_type, coordinates)
+    if valid_placement?(ship_type, coordinates)
+      coordinates.map do |coordinate|
+        @cells[coordinate].place_ship(ship_type)
+      end
+    end
+  end
+
+  def no_overlap?(coordinates)
+    coordinates.all? do |coordinate|
+      @cells[coordinate].empty?
+    end
+  end
+
 end
