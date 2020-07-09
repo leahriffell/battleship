@@ -6,13 +6,21 @@ class Board
   generate_board_columns_and_rows # call method to generate cell for board.
   end
 
+  def generate_columns
+    ("A".."D").to_a
+  end
+
+  def generate_rows
+    ("1".."4").to_a
+  end
+
   def generate_board_columns_and_rows
-    columns = ("A".."D").to_a
-    rows = ("1".."4").to_a
+    generate_columns
+    generate_rows
     coordinates = []
 
-    columns.each do |column|
-        rows.each do |row| row.to_s
+    generate_columns.each do |column|
+        generate_rows.each do |row| row.to_s
         coordinates <<  "#{column}#{row}"
         end
     end
@@ -63,4 +71,43 @@ class Board
     end
   end
 
+  def render(ship_display = false)
+    # For us, the rows and columns flip flopped for now (columns are alphabetical, rows are numeral)
+
+    # This rendering of cells array could be a helper method
+    rendered_cells = []
+    @cells.each do |coordinate, cell_instance|
+      if ship_display == true
+        rendered_cells << "#{cell_instance.render(true)} "
+      else ship_display == false
+        rendered_cells << "#{cell_instance.render} "
+      end
+    end
+
+    # Was hoping to use this to somehow make the cells inserted into each row dynamic
+    # cells_per_row = rendered_cells.size / generate_rows.size
+
+    # At this point, rows AND cells within the rows are not dynamic
+    "  #{generate_columns.join(" ")} \n" +
+    "1 #{rendered_cells[0..3].join("")}\n" +
+    "2 #{rendered_cells[4..7].join("")}\n" +
+    "3 #{rendered_cells[8..11].join("")}\n" +
+    "4 #{rendered_cells[12..15].join("")}\n"
+  end
+
+# Nico and Melvin's session work
+#   def render(ship_display = false)
+#   row = 1
+#   @cells.each_slice(4).to_a.transpose.reduce(”  A B C D”) do |state, cell_group|
+#     x = cell_group.map do |key, value|
+#       if ship_display == true
+#         value.render(true)
+#       else
+#         value.render
+#       end
+#     end
+#     y = “\n#{row} #{x.join(' ’)}”
+#     row += 1
+#     state = state + y
+#   end.concat(” \n”)
 end
