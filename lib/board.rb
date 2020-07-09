@@ -72,10 +72,17 @@ class Board
   end
 
   def render(ship_display = false)
-    # binding.pry
-    p generate_columns
-    p generate_rows
-    binding.pry
-  end
+    # For us, the rows and columns flip flopped for now (columns are alphabetical, rows are numeral)
+    p generate_columns.join(" ")
+    # Print string of row number followed by each cell instance rendered
 
+    generate_rows.each do |row|
+      print row
+      @cells.each do |coordinate, cell_instance|
+        if coordinate[1] == row
+          print cell_instance.render
+        end
+      end
+    print "\n"
+  end
 end
