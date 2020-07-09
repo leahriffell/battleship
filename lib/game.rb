@@ -1,11 +1,11 @@
 class Game
-  def initialize
 
-    # display_welcome_message
+  def initialize
+    @computer = computer
+    @human_player = human_player
   end
 
   def display_welcome_message
-
     puts "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
     prompt_response = gets.chomp.upcase
 

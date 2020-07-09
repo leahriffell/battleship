@@ -15,6 +15,9 @@ class GameTest < MiniTest::Test
     assert_equal "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit.", game = Game.new
   end
 
+  def test_computer_has_two_ships
+    game = Game.new
 
-
+    assert_equal 2, computer.ships
+  end
 end
