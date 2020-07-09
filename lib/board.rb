@@ -6,13 +6,21 @@ class Board
   generate_board_columns_and_rows # call method to generate cell for board.
   end
 
+  def generate_columns
+    ("A".."D").to_a
+  end
+
+  def generate_rows
+    ("1".."4").to_a
+  end
+
   def generate_board_columns_and_rows
-    columns = ("A".."D").to_a
-    rows = ("1".."4").to_a
+    generate_columns
+    generate_rows
     coordinates = []
 
-    columns.each do |column|
-        rows.each do |row| row.to_s
+    generate_columns.each do |column|
+        generate_rows.each do |row| row.to_s
         coordinates <<  "#{column}#{row}"
         end
     end
@@ -61,6 +69,13 @@ class Board
     coordinates.all? do |coordinate|
       @cells[coordinate].empty?
     end
+  end
+
+  def render(ship_display = false)
+    # binding.pry
+    p generate_columns
+    p generate_rows
+    binding.pry
   end
 
 end
