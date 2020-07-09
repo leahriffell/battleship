@@ -73,16 +73,37 @@ class Board
 
   def render(ship_display = false)
     # For us, the rows and columns flip flopped for now (columns are alphabetical, rows are numeral)
-    p generate_columns.join(" ")
-    # Print string of row number followed by each cell instance rendered
 
-    generate_rows.each do |row|
-      print row
-      @cells.each do |coordinate, cell_instance|
-        if coordinate[1] == row
-          print cell_instance.render
-        end
-      end
-    print "\n"
+    # This rendering of cells array could be a helper method
+    rendered_cells = []
+    @cells.each do |coordinate, cell_instance|
+      rendered_cells << "#{cell_instance.render} "
+    end
+
+    # Was hoping to use this to somehow make the cells inserted into each row dynamic
+    # cells_per_row = rendered_cells.size / generate_rows.size
+
+    # At this point, rows AND cells within the rows are not dynamic
+    "  #{generate_columns.join(" ")} \n" +
+    "1 #{rendered_cells[0..3].join("")}\n" +
+    "2 #{rendered_cells[4..7].join("")}\n" +
+    "3 #{rendered_cells[8..11].join("")}\n" +
+    "4 #{rendered_cells[12..15].join("")}\n"
   end
+
+# Nico and Melvin's session work
+#   def render(ship_display = false)
+#   row = 1
+#   @cells.each_slice(4).to_a.transpose.reduce(”  A B C D”) do |state, cell_group|
+#     x = cell_group.map do |key, value|
+#       if ship_display == true
+#         value.render(true)
+#       else
+#         value.render
+#       end
+#     end
+#     y = “\n#{row} #{x.join(' ’)}”
+#     row += 1
+#     state = state + y
+#   end.concat(” \n”)
 end
