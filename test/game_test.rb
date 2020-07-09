@@ -12,9 +12,9 @@ class GameTest < MiniTest::Test
   def test_it_displays_welcome_mssg_on_setup
     game = Game.new
 
-    assert_equal "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit.", game.display_welcome_message
+    assert_equal "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit.", game = Game.new
   end
-  
+
 
 
 end
