@@ -74,4 +74,12 @@ class BoardTest < Minitest::Test
     assert_equal "  A B C D \n1 . . . . \n2 . . . . \n3 . . . . \n4 . . . . \n", board.render
   end
 
+  def test_it_can_render_with_ships_showing
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal "  A B C D \n1 S S S . \n2 . . . . \n3 . . . . \n4 . . . . \n", board.render(true)
+  end
+
 end

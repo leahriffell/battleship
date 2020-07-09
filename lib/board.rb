@@ -77,7 +77,11 @@ class Board
     # This rendering of cells array could be a helper method
     rendered_cells = []
     @cells.each do |coordinate, cell_instance|
-      rendered_cells << "#{cell_instance.render} "
+      if ship_display == true
+        rendered_cells << "#{cell_instance.render(true)} "
+      else ship_display == false
+        rendered_cells << "#{cell_instance.render} "
+      end
     end
 
     # Was hoping to use this to somehow make the cells inserted into each row dynamic
