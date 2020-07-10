@@ -2,6 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/ship"
 require "./lib/player"
+require "./lib/board"
 require "pry"
 
 class GameTest < MiniTest::Test
@@ -24,5 +25,13 @@ class GameTest < MiniTest::Test
 
     assert_equal 2, human.ships.length
     assert_equal 2, computer.ships.length
+  end
+
+  def test_it_has_a_board
+    human = Player.new("Human")
+    computer = Player.new("Computer")
+
+    assert_equal true, human.has_board?
+    assert_equal true, computer.has_board?
   end
 end
