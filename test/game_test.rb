@@ -21,6 +21,7 @@ class GameTest < MiniTest::Test
   def test_it_has_assigned_boards
     game = Game.new
 
-    game.human_player.board
+    assert_equal true, game.human_player.has_board?
+    assert_equal true, game.computer_player.has_board?
   end
 end

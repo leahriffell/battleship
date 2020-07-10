@@ -11,6 +11,7 @@ class Player
     # @human_ships = []
     # @computer_ships = []
     generate_ships
+    assign_board
   end
 
   def generate_ships

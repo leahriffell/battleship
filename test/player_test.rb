@@ -34,4 +34,10 @@ class GameTest < MiniTest::Test
     assert_equal true, human.has_board?
     assert_equal true, computer.has_board?
   end
+
+  def test_computer_player_randomly_places_ships
+    computer = Player.new("Computer")
+require "pry"; binding.pry
+    # computer.randomly_place_ships
+  end
 end
