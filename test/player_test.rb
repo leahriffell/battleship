@@ -38,6 +38,6 @@ class GameTest < MiniTest::Test
   def test_computer_player_randomly_places_ships
     computer = Player.new("Computer")
 require "pry"; binding.pry
-    # computer.randomly_place_ships
+    computer.randomly_place_ships
   end
 end
