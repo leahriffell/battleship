@@ -34,42 +34,56 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
-  def valid_placement?(ship_type, coordinates)
-    # If rows all the same ordinal value, then column ordinal values must be different (equal to the coordinate length)
-    # If columns are all the same ordinal value, then row ordinal values must be different (equal to coordinate length)
-    # If the length of range of column ordinal values equals 1, then the length of row ordinal values must equal length of coordinates array passed in
-    return false unless no_overlap?(coordinates)
-
-    column_ordinals =
-      coordinates.map do |coordinate|
-        coordinate[0].ord
-      end
-
-    row_ordinals =
-      coordinates.map do |coordinate|
-        coordinate[1].ord
-      end
-
-    column_ordinal_range = (column_ordinals.min..column_ordinals.max).to_a
-
-    row_ordinal_range = (row_ordinals.min..row_ordinals.max).to_a
-
-    ship_type.length == coordinates.length &&
-    (column_ordinal_range.length == 1 && row_ordinal_range.length == coordinates.length || column_ordinal_range.length == coordinates.length && row_ordinal_range.length == 1)
-    # binding.pry
+  def consecutive_rows?(coordinates)
+    coordinate_rows = coordinates.map {|coordinate| coordinate[-1]}
+    row_range = (coordinate_rows[0]..coordinate_rows[-1]).to_a
+    coordinate_rows == row_range
   end
 
-  def place(ship_type, coordinates)
-    if valid_placement?(ship_type, coordinates)
-      coordinates.map do |coordinate|
-        @cells[coordinate].place_ship(ship_type)
-      end
-    end
+  def consecutive_columns?(coordinates)
+    coordinate_columns = coordinates.map {|coordinate| coordinate[0]}
+    column_range = (coordinate_columns[0]..coordinate_columns[-1]).to_a
+    coordinate_columns == column_range
+  end
+
+  def consecutive_rows_or_columns?(coordinates)
+    consecutive_rows?(coordinates) || consecutive_columns?(coordinates)
   end
 
   def no_overlap?(coordinates)
     coordinates.all? do |coordinate|
       @cells[coordinate].empty?
+    end
+  end
+
+  def return_ordinals(coordinates, index)
+    coordinates.map do |coordinate|
+      coordinate[index].ord
+    end
+  end
+
+  def column_ordinal_range(coordinates)
+    (return_ordinals(coordinates, 0).min..return_ordinals(coordinates, 0).max).to_a
+  end
+
+  def row_ordinal_range(coordinates)
+    (return_ordinals(coordinates, 1).min..return_ordinals(coordinates, 1).max).to_a
+  end
+
+  def not_diagonal?(coordinates)
+  # If rows all the same ordinal value, then column ordinal values must be different (equal to the coordinate length) and vice-versa
+    column_ordinal_range(coordinates).length == 1 && row_ordinal_range(coordinates).length == coordinates.length || column_ordinal_range(coordinates).length == coordinates.length && row_ordinal_range(coordinates).length == 1
+  end
+
+  def valid_placement?(ship_type, coordinates)
+    no_overlap?(coordinates) && consecutive_rows_or_columns?(coordinates) && ship_type.length == coordinates.length && not_diagonal?(coordinates)
+  end
+
+  def place(ship_type, coordinates)
+    if valid_placement?(ship_type, coordinates) == true
+      coordinates.map do |coordinate|
+        @cells[coordinate].place_ship(ship_type)
+      end
     end
   end
 
@@ -85,9 +99,6 @@ class Board
         rendered_cells << "#{cell_instance.render} "
       end
     end
-
-    # Was hoping to use this to somehow make the cells inserted into each row dynamic
-    # cells_per_row = rendered_cells.size / generate_rows.size
 
     # At this point, rows AND cells within the rows are not dynamic
     "  #{generate_columns.join(" ")} \n" +
