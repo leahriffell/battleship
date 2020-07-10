@@ -1,8 +1,6 @@
 class Game
 
   def initialize
-    @computer = computer
-    @human_player = human_player
   end
 
   def display_welcome_message

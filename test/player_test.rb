@@ -22,7 +22,7 @@ class GameTest < MiniTest::Test
     human = Player.new("Human")
     computer = Player.new("Computer")
 
-    assert_equal 2, human.human_ships.length
-    assert_equal 2, computer.computer_ships.length
+    assert_equal 2, human.ships.length
+    assert_equal 2, computer.ships.length
   end
 end
