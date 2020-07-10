@@ -10,13 +10,6 @@ class GameTest < MiniTest::Test
     assert_instance_of Game, game
   end
 
-  def test_it_displays_welcome_mssg_on_setup
-    skip
-    game = Game.new
-
-    assert_equal "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit.", game = Game.new
-  end
-
   def test_game_has_human_and_computer_player
     game = Game.new
 

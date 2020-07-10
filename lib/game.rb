@@ -1,3 +1,5 @@
+require "./lib/player"
+
 class Game
   attr_reader :human_player, :computer_player
 
