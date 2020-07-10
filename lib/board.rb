@@ -74,27 +74,7 @@ class Board
   end
 
   def valid_placement?(ship_type, coordinates)
-    # column_ordinals =
-    #   coordinates.map do |coordinate|
-    #     coordinate[0].ord
-    #   end
-    #
-    # row_ordinals =
-    #   coordinates.map do |coordinate|
-    #     coordinate[1].ord
-    #   end
-    #
-    # column_ordinal_range = (column_ordinals.min..column_ordinals.max).to_a
-    #
-    # row_ordinal_range = (row_ordinals.min..row_ordinals.max).to_a
-
-    if no_overlap?(coordinates) == true && consecutive_rows_or_columns?(coordinates) == true && ship_type.length == coordinates.length && not_diagonal?(coordinates) == true
-      true
-      # ship_type.length == coordinates.length &&
-      # (column_ordinal_range.length == 1 && row_ordinal_range.length == coordinates.length || column_ordinal_range.length == coordinates.length && row_ordinal_range.length == 1)
-    else
-      false
-    end
+    no_overlap?(coordinates) && consecutive_rows_or_columns?(coordinates) && ship_type.length == coordinates.length && not_diagonal?(coordinates)
   end
 
   def place(ship_type, coordinates)
