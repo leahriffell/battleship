@@ -11,6 +11,7 @@ class GameTest < MiniTest::Test
   end
 
   def test_it_displays_welcome_mssg_on_setup
+    skip
     game = Game.new
 
     assert_equal "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit.", game = Game.new
@@ -18,10 +19,8 @@ class GameTest < MiniTest::Test
 
   def test_game_has_human_and_computer_player
     game = Game.new
-    human = Player.new("Human")
-    computer = Player.new("Computer")
-require "pry"; binding.pry
-    # assert_equal , game.human_player
 
+    assert_equal "Human", game.human_player.type
+    assert_equal "Computer", game.computer_player.type
   end
 end
