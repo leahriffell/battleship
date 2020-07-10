@@ -32,6 +32,12 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
+  def consecutive_row?(coordinates)
+    generate_rows
+    coordinate_rows = coordinates.map {|coordinate| coordinate[-1]}
+    generate_rows == coordinate_rows
+  end
+
   def valid_placement?(ship_type, coordinates)
     # If rows all the same ordinal value, then column ordinal values must be different (equal to the coordinate length)
     # If columns are all the same ordinal value, then row ordinal values must be different (equal to coordinate length)
