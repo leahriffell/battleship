@@ -40,7 +40,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_placement_has_consecutive_coordinates
-    skip
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -52,7 +52,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_placement_does_not_have_diagonal_coordinates
-    skip
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -62,7 +62,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_placement_is_valid
-    skip
+    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)

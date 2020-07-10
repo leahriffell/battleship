@@ -32,18 +32,32 @@ class Board
     @cells.keys.include?(coordinate)
   end
 
-  def consecutive_row?(coordinates)
-    generate_rows
+  def consecutive_rows?(coordinates)
     coordinate_rows = coordinates.map {|coordinate| coordinate[-1]}
-    generate_rows == coordinate_rows
+    row_range = (coordinate_rows[0]..coordinate_rows[-1]).to_a
+    coordinate_rows == row_range
+  end
+
+  def consecutive_columns?(coordinates)
+    coordinate_columns = coordinates.map {|coordinate| coordinate[0]}
+    column_range = (coordinate_columns[0]..coordinate_columns[-1]).to_a
+    coordinate_columns == column_range
+  end
+
+  def consecutive_rows_or_columns?(coordinates)
+    consecutive_rows?(coordinates) || consecutive_columns?(coordinates)
+  end
+
+  def no_overlap?(coordinates)
+    coordinates.all? do |coordinate|
+      @cells[coordinate].empty?
+    end
   end
 
   def valid_placement?(ship_type, coordinates)
     # If rows all the same ordinal value, then column ordinal values must be different (equal to the coordinate length)
     # If columns are all the same ordinal value, then row ordinal values must be different (equal to coordinate length)
     # If the length of range of column ordinal values equals 1, then the length of row ordinal values must equal length of coordinates array passed in
-    return false unless no_overlap?(coordinates)
-
     column_ordinals =
       coordinates.map do |coordinate|
         coordinate[0].ord
@@ -58,22 +72,19 @@ class Board
 
     row_ordinal_range = (row_ordinals.min..row_ordinals.max).to_a
 
-    ship_type.length == coordinates.length &&
-    (column_ordinal_range.length == 1 && row_ordinal_range.length == coordinates.length || column_ordinal_range.length == coordinates.length && row_ordinal_range.length == 1)
-    # binding.pry
-  end
-
-  def place(ship_type, coordinates)
-    if valid_placement?(ship_type, coordinates)
-      coordinates.map do |coordinate|
-        @cells[coordinate].place_ship(ship_type)
-      end
+    if no_overlap?(coordinates) == true && consecutive_rows_or_columns?(coordinates) == true
+      ship_type.length == coordinates.length &&
+      (column_ordinal_range.length == 1 && row_ordinal_range.length == coordinates.length || column_ordinal_range.length == coordinates.length && row_ordinal_range.length == 1)
+    else
+      false
     end
   end
 
-  def no_overlap?(coordinates)
-    coordinates.all? do |coordinate|
-      @cells[coordinate].empty?
+  def place(ship_type, coordinates)
+    if valid_placement?(ship_type, coordinates) == true
+      coordinates.map do |coordinate|
+        @cells[coordinate].place_ship(ship_type)
+      end
     end
   end
 
