@@ -37,7 +37,9 @@ class GameTest < MiniTest::Test
 
   def test_computer_player_randomly_places_ships
     computer = Player.new("Computer")
-require "pry"; binding.pry
-    computer.randomly_place_ships
+
+    computer.randomly_place_cruiser
+    computer.randomly_place_submarine
+    assert_equal 5, computer.board.cells.select {|key, value| value.ship}.length
   end
 end

@@ -53,9 +53,10 @@ class Board
   def no_overlap?(coordinates)
     coordinates.all? do |coordinate|
       if @cells[coordinate].nil?
-        require "pry"; binding.pry
-      end
+        # require "pry"; binding.pry
+      else
       @cells[coordinate].empty?
+      end
     end
   end
 
