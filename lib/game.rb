@@ -23,6 +23,10 @@ class Game
 
   def start_game
     p "Start method started"
+    @computer_player.randomly_place_cruiser
+    @computer_player.randomly_place_submarine
+    @human_player.let_human_place_cruiser
+    @human_player.let_human_place_submarine
   end
 
   def quit_game
