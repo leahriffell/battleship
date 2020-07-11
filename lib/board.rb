@@ -67,7 +67,7 @@ class Board
   end
 
   def row_ordinal_range(coordinates)
-    (return_ordinals(coordinates, 1).min..return_ordinals(coordinates, -1).max).to_a
+    (return_ordinals(coordinates, 1).min..return_ordinals(coordinates, 1).max).to_a
   end
 
   def column_ordinal_range(coordinates)
