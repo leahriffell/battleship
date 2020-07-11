@@ -75,6 +75,7 @@ attr_reader :type, :ships, :board
       desired_placement = gets.chomp.upcase.split
     end
     @board.place(@ships[0],desired_placement)
+    puts @board.render(true)
   end
 
 end
