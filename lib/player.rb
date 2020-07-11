@@ -17,11 +17,6 @@ attr_reader :type, :ships, :board
   def generate_ships
   @ships << Ship.new("Cruiser", 3)
   @ships << Ship.new("Submarine", 2)
-
-  # @human_ships << Ship.new("Cruiser", 3)
-  # @human_ships << Ship.new("Submarine", 2)
-  # @computer_ships << Ship.new("Cruiser", 3)
-  # @computer_ships << Ship.new("Submarine", 2)
   end
 
   def assign_board
@@ -32,6 +27,7 @@ attr_reader :type, :ships, :board
   @board.class == Board
   end
 
+# this method should probably belong to board class
   def random_coordinate
     board.cells.keys.sample(1).join
   end
@@ -66,6 +62,19 @@ attr_reader :type, :ships, :board
 
   def randomly_place_submarine
     @board.place(@ships[1],(valid_random_coordinate_array_sub))
+  end
+
+  def let_human_place_cruiser
+    puts "I have laid out my ships on the grid. \nYou now need to lay out your two ships. \nThe Cruiser is three units long and the Submarine is two units long."
+    puts @board.render
+    puts "Enter the squares for the Cruiser (3 spaces):"
+    desired_placement = gets.chomp.upcase.split
+
+    until @board.valid_placement?(@ships[0],desired_placement) == true
+      puts "Those are invalid coordinates. Please try again:"
+      desired_placement = gets.chomp.upcase.split
+    end
+    @board.place(@ships[0],desired_placement)
   end
 
 end
