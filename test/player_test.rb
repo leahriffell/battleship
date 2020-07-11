@@ -48,8 +48,8 @@ class GameTest < MiniTest::Test
     # This is similar to our welcome message method that requires user input in order to do execute. We did not test in that case as it'll be caught when we play the game.
 
     # don't want to call this in our test
-    human.let_human_place_cruiser
-    human.let_human_place_submarine
+    # human.let_human_place_cruiser
+    # human.let_human_place_submarine
     # assert_equal 3, human.board.cells.select {|key, value| value.ship}.length
   end
 end
