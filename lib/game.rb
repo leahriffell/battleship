@@ -1,11 +1,14 @@
-class Game
-  def initialize
+require "./lib/player"
 
-    # display_welcome_message
+class Game
+  attr_reader :human_player, :computer_player
+
+  def initialize
+    @human_player = Player.new("Human")
+    @computer_player = Player.new("Computer")
   end
 
   def display_welcome_message
-
     puts "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
     prompt_response = gets.chomp.upcase
 
