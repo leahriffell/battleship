@@ -92,8 +92,6 @@ class Board
   end
 
   def render(ship_display = false)
-    # For us, the columns and rows flip flopped for now (rows are alphabetical, columns are numeral)
-
     # This rendering of cells array could be a helper method
     rendered_cells = []
     @cells.each do |coordinate, cell_instance|

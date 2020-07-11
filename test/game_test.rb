@@ -24,4 +24,5 @@ class GameTest < MiniTest::Test
     assert_equal true, game.human_player.has_board?
     assert_equal true, game.computer_player.has_board?
   end
+
 end
