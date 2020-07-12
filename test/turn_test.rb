@@ -29,14 +29,24 @@ class TurnTest < MiniTest::Test
   def test_the_player_can_provide_a_valid_coordinate_as_shot
     skip
       game = Game.new
-
-      assert_equal false, game.turn.player_shot.nil?
+      assert_equal false, game.turn.player_shot.nil? # => This tests the method is returning something and it is not nil.
   end
 
   def test_the_computer_can_provide_a_valid_coordinate_as_shot
+    skip
     game = Game.new
 
     assert_equal false, game.turn.computer_shot.nil?
-end
+  end
+
+  def test_it_we_can_shoot_a_custom_coordinate
+    # skip
+    game = Game.new
+
+    game.turn.test_shot("A4")
+
+    assert_equal true, game.turn.computer.board.cells["A4"].fired_upon?
+  end 
+
 
 end

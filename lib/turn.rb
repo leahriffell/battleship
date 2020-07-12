@@ -17,21 +17,31 @@ class Turn
   def player_shot
       puts "Enter the coordinate for your shot:"
       desired_placement = gets.chomp.upcase.to_s
-      # binding.pry
       until @computer.board.valid_coordinate?(desired_placement) == true 
-        # binding.pry
        puts "Please enter a valid coordinate:"
        desired_placement = gets.chomp.upcase
       end
-      desired_placement
+
+      @computer.board.cells[desired_placement].fire_upon
   end
-  
+
   def computer_shot
       shot = @human.board.cells.keys.sample(1).join
       @human.board.valid_coordinate?(shot) == true && @human.board.cells[shot].fired_upon? == false
-      p shot
-
+      
+      @computer.board.cells[shot].fire_upon
   end
+
+  def results
+    @computer.board.cells[shot].render 
+  end
+
+
+  #### ------ proofing methods
+  def test_shot(test_shot)
+    @computer.board.cells[test_shot].fire_upon
+  end 
+
 end
 
 #@human.board.cells.values[0].fired_upon?
