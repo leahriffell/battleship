@@ -28,10 +28,11 @@ class Turn
   end
 
   def computer_shot
-      shot = @human.board.cells.keys.sample(1).join
-      @human.board.valid_coordinate?(shot) == true && @human.board.cells[shot].fired_upon? == false
+      shot_placement = @human.board.cells.keys.sample(1).join
+      @human.board.valid_coordinate?(shot_placement) == true && @human.board.cells[shot_placement].fired_upon? == false
       
-      @computer.board.cells[shot].fire_upon
+      @computer.board.cells[shot_placement].fire_upon
+      display_computer_shot_results(shot_placement)
   end
 
   def display_human_shot_results(shot_placement)
@@ -42,10 +43,18 @@ class Turn
     else @computer.board.cells[shot_placement].empty? == false
       puts "Your shot on #{shot_placement} was a hit."
     end
-    binding.pry
-
   end
 
+  def display_computer_shot_results(shot_placement)
+    if @human.board.cells[shot_placement].empty? == true
+      puts "My shot on #{shot_placement} was a miss."
+    elsif @human.board.cells[shot_placement].ship.sunk? == true
+      puts "My shot on #{shot_placement} sunk your #{@human.board.cells[shot_placement].ship.name}."
+    else @human.board.cells[shot_placement].empty? == false
+      puts "My shot on #{shot_placement} was a hit."
+    end
+    # binding.pry
+  end
 
   #### ------ proofing methods
   def test_shot(test_shot)
