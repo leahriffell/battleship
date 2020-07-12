@@ -1,11 +1,14 @@
 require "./lib/player"
+require "./lib/turn"
+
 
 class Game
-  attr_reader :human_player, :computer_player
+  attr_reader :human_player, :computer_player, :turn
 
   def initialize
     @human_player = Player.new("Human")
     @computer_player = Player.new("Computer")
+    @turn = Turn.new(@human_player, @computer_player)
   end
 
   def display_welcome_message

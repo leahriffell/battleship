@@ -9,8 +9,8 @@ class Turn
   def display_boards
     # trying to use return instead of puts (like board render method)
      "=============COMPUTER BOARD=============\n" +
-     "#{@computer.board.render}\n" +
+     "#{@computer.board.render}" +
      "==============PLAYER BOARD==============\n" +
-     "#{@human.board.render}\n"
+     "#{@human.board.render(true)}"
   end
 end

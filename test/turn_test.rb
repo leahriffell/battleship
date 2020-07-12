@@ -17,7 +17,7 @@ class TurnTest < MiniTest::Test
     computer = Player.new("Computer")
     human = Player.new("Human")
     turn = Turn.new(computer, human)
-
-    assert_equal "=============COMPUTER BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n==============PLAYER BOARD==============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .", turn.display_boards
+# binding.pry
+    assert_equal "=============COMPUTER BOARD=============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n==============PLAYER BOARD==============\n  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .\n", turn.display_boards
   end
 end
