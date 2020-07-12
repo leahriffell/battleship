@@ -27,10 +27,16 @@ class TurnTest < MiniTest::Test
   end
 
   def test_the_player_can_provide_a_valid_coordinate_as_shot
+    skip
       game = Game.new
-      
+
       assert_equal false, game.turn.player_shot.nil?
   end
 
+  def test_the_computer_can_provide_a_valid_coordinate_as_shot
+    game = Game.new
+
+    assert_equal false, game.turn.computer_shot.nil?
+end
 
 end

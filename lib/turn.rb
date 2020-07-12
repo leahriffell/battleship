@@ -26,4 +26,12 @@ class Turn
       desired_placement
   end
   
+  def computer_shot
+      shot = @human.board.cells.keys.sample(1).join
+      @human.board.valid_coordinate?(shot) == true && @human.board.cells[shot].fired_upon? == false
+      p shot
+
+  end
 end
+
+#@human.board.cells.values[0].fired_upon?
