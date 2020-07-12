@@ -30,7 +30,7 @@ class Game
     @human_player.let_human_place_cruiser
     @human_player.let_human_place_submarine
     
-    5.times do 
+    10.times do 
       @turn.human_shot
       @turn.computer_shot
     end

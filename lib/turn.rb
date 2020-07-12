@@ -28,13 +28,14 @@ class Turn
     end
     @computer.board.cells[shot_placement].fire_upon
     display_human_shot_results(shot_placement)
+    binding.pry
   end
 
   def computer_shot
       shot_placement = @human.board.cells.keys.sample(1).join
       @human.board.valid_coordinate?(shot_placement) == true && @human.board.cells[shot_placement].fired_upon? == false
       
-      @computer.board.cells[shot_placement].fire_upon
+      @human.board.cells[shot_placement].fire_upon
       display_computer_shot_results(shot_placement)
   end
 
