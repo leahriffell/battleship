@@ -1,9 +1,9 @@
 class Turn
   attr_reader :computer, :human
 
-  def initialize(computer, human)
-    @computer = computer
+  def initialize(human, computer)
     @human = human
+    @computer = computer
   end
 
   def display_boards
@@ -14,15 +14,17 @@ class Turn
      "#{@human.board.render(true)}"
   end
 
-  def player_shot
+  def human_shot
       puts "Enter the coordinate for your shot:"
-      desired_placement = gets.chomp.upcase.to_s
-      until @computer.board.valid_coordinate?(desired_placement) == true 
+      shot_placement = gets.chomp.upcase.to_s
+      until @computer.board.valid_coordinate?(shot_placement) == true 
        puts "Please enter a valid coordinate:"
-       desired_placement = gets.chomp.upcase
+       shot_placement = gets.chomp.upcase
       end
 
-      @computer.board.cells[desired_placement].fire_upon
+      @computer.board.cells[shot_placement].fire_upon
+      
+      display_human_shot_results(shot_placement)
   end
 
   def computer_shot
@@ -32,8 +34,16 @@ class Turn
       @computer.board.cells[shot].fire_upon
   end
 
-  def results
-    @computer.board.cells[shot].render 
+  def display_human_shot_results(shot_placement)
+    if @computer.board.cells[shot_placement].empty? == true
+      puts "Your shot on #{shot_placement} was a miss."
+    elsif @computer.board.cells[shot_placement].ship.sunk? == true
+      puts "Your shot on #{shot_placement} sunk my #{@computer.board.cells[shot_placement].ship.name}."
+    else @computer.board.cells[shot_placement].empty? == false
+      puts "Your shot on #{shot_placement} was a hit."
+    end
+    binding.pry
+
   end
 
 
