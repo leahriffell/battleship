@@ -1,11 +1,14 @@
 require "./lib/player"
+require "./lib/turn"
+
 
 class Game
-  attr_reader :human_player, :computer_player
+  attr_reader :human_player, :computer_player, :turn
 
   def initialize
     @human_player = Player.new("Human")
     @computer_player = Player.new("Computer")
+    @turn = Turn.new(@human_player, @computer_player)
   end
 
   def display_welcome_message
@@ -22,11 +25,15 @@ class Game
   end
 
   def start_game
-    p "Start method started"
     @computer_player.randomly_place_cruiser
     @computer_player.randomly_place_submarine
     @human_player.let_human_place_cruiser
     @human_player.let_human_place_submarine
+    
+    10.times do 
+      @turn.human_shot
+      @turn.computer_shot
+    end
   end
 
   def quit_game
