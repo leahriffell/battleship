@@ -13,4 +13,17 @@ class Turn
      "==============PLAYER BOARD==============\n" +
      "#{@human.board.render(true)}"
   end
+
+  def player_shot
+      puts "Enter the coordinate for your shot:"
+      desired_placement = gets.chomp.upcase.to_s
+      # binding.pry
+      until @computer.board.valid_coordinate?(desired_placement) == true 
+        # binding.pry
+       puts "Please enter a valid coordinate:"
+       desired_placement = gets.chomp.upcase
+      end
+      desired_placement
+  end
+  
 end
