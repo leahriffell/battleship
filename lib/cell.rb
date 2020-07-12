@@ -28,7 +28,10 @@ class Cell
   end
 
   def fired_upon?
-    @fired_upon
+    if @fired_upon == nil 
+      false
+    else @fired_upon
+    end
   end
 
   def render(ship_display = false)

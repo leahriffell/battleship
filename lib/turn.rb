@@ -15,16 +15,19 @@ class Turn
   end
 
   def human_shot
-      puts "Enter the coordinate for your shot:"
-      shot_placement = gets.chomp.upcase.to_s
-      until @computer.board.valid_coordinate?(shot_placement) == true 
-       puts "Please enter a valid coordinate:"
-       shot_placement = gets.chomp.upcase
+    puts "Enter the coordinate for your shot:"
+    shot_placement = gets.chomp.upcase.to_s
+    until @computer.board.valid_coordinate?(shot_placement) == true && @computer.board.cells[shot_placement].fired_upon? == false 
+      if @computer.board.valid_coordinate?(shot_placement) == true && @computer.board.cells[shot_placement].fired_upon? == true
+          puts "You have already fired upon this coordinate. Please enter a different one."
+          shot_placement = gets.chomp.upcase
+      else @computer.board.valid_coordinate?(shot_placement) == false
+          puts "Please enter a valid coordinate:"
+          shot_placement = gets.chomp.upcase
       end
-
-      @computer.board.cells[shot_placement].fire_upon
-      
-      display_human_shot_results(shot_placement)
+    end
+    @computer.board.cells[shot_placement].fire_upon
+    display_human_shot_results(shot_placement)
   end
 
   def computer_shot

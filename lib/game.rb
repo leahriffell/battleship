@@ -29,8 +29,11 @@ class Game
     @computer_player.randomly_place_submarine
     @human_player.let_human_place_cruiser
     @human_player.let_human_place_submarine
-    @turn.human_shot
-    @turn.computer_shot
+    
+    5.times do 
+      @turn.human_shot
+      @turn.computer_shot
+    end
   end
 
   def quit_game
