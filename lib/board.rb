@@ -52,11 +52,12 @@ class Board
 
   def no_overlap?(coordinates)
     coordinates.all? do |coordinate|
-      if @cells[coordinate].nil?
-        # require "pry"; binding.pry
+      if @cells[coordinate] == nil
+        false
       else
-      @cells[coordinate].empty?
+        @cells[coordinate].empty?
       end
+      # @cells[coordinate].empty?
     end
   end
 
@@ -95,9 +96,9 @@ class Board
     # This rendering of cells array could be a helper method
     rendered_cells = []
     @cells.each do |coordinate, cell_instance|
-      if ship_display == true
+      if ship_display
         rendered_cells << "#{cell_instance.render(true)} "
-      else ship_display == false
+      else
         rendered_cells << "#{cell_instance.render} "
       end
     end

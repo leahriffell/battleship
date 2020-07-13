@@ -32,6 +32,7 @@ class Game
   end
 
   def game_over?
+    # maybe have helper method b/c both sides of or statements are very similar (just calling on different player objects)
     @computer_player.ships.all? {|ship| ship.health == 0} || @human_player.ships.all? {|ship| ship.health == 0}
   end
 
@@ -52,6 +53,7 @@ class Game
 
   def display_winner
     if game_over? == true
+      # same code that we used above to determine if game over 
       if @computer_player.ships.all? {|ship| ship.health == 0}
         puts "You won!"
       else @human_player.ships.all? {|ship| ship.health == 0}
