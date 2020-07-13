@@ -103,27 +103,24 @@ class Board
       end
     end
 
-    # At this point, columns AND cells within the columns are not dynamic
+    cells_per_row = ((rendered_cells.length / generate_rows.length) - 1).to_i
+    next_row = cells_per_row + 1
+
+    index = 0
+    rows_and_cells = ""
+    generate_rows.each do |row|
+      rows_and_cells << "#{row} #{rendered_cells[index..(index + cells_per_row)].join("")}\n"
+      index = cells_per_row + 1
+    end
+
     "  #{generate_columns.join(" ")} \n" +
-    "A #{rendered_cells[0..3].join("")}\n" +
-    "B #{rendered_cells[4..7].join("")}\n" +
-    "C #{rendered_cells[8..11].join("")}\n" +
-    "D #{rendered_cells[12..15].join("")}\n"
+    rows_and_cells
+
+
+    # "A #{rendered_cells[0..cells_per_row].join("")}\n" +
+    # "B #{rendered_cells[next_row..(next_row + cells_per_row)].join("")}\n" +
+    # "C #{rendered_cells[8..11].join("")}\n" +
+    # "D #{rendered_cells[12..15].join("")}\n"
   end
 
-# Nico and Melvin's session work
-#   def render(ship_display = false)
-#   column = 1
-#   @cells.each_slice(4).to_a.transpose.reduce(”  A B C D”) do |state, cell_group|
-#     x = cell_group.map do |key, value|
-#       if ship_display == true
-#         value.render(true)
-#       else
-#         value.render
-#       end
-#     end
-#     y = “\n#{column} #{x.join(' ’)}”
-#     column += 1
-#     state = state + y
-#   end.concat(” \n”)
 end
