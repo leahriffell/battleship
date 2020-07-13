@@ -1,4 +1,4 @@
 require "./lib/game"
 
 game = Game.new
-game.display_welcome_message
+game.play_the_game

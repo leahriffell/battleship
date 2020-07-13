@@ -10,6 +10,12 @@ class Game
     @turn = Turn.new(@human_player, @computer_player)
   end
 
+  def play_the_game
+    loop do
+      display_welcome_message
+    end
+  end
+
   def display_welcome_message
     puts "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
     prompt_response = gets.chomp.upcase
