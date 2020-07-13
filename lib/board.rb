@@ -91,9 +91,8 @@ class Board
       end
     end
   end
-
-  def render(ship_display = false)
-    # This rendering of cells array could be a helper method
+#--------------------
+  def rendered_cells(ship_display = false)
     rendered_cells = []
     @cells.each do |coordinate, cell_instance|
       if ship_display
@@ -102,25 +101,26 @@ class Board
         rendered_cells << "#{cell_instance.render} "
       end
     end
+    rendered_cells
+  end
 
-    cells_per_row = ((rendered_cells.length / generate_rows.length) - 1).to_i
-    next_row = cells_per_row + 1
+  def cells_per_row
+    ((rendered_cells.length / generate_rows.length) - 1).to_i
+  end
 
+  def render_rows_and_cells(ship_display = false)
     index = 0
     rows_and_cells = ""
     generate_rows.each do |row|
-      rows_and_cells << "#{row} #{rendered_cells[index..(index + cells_per_row)].join("")}\n"
+      rows_and_cells << "#{row} #{rendered_cells(ship_display)[index..(index + cells_per_row)].join("")}\n"
       index = cells_per_row + 1
     end
-
-    "  #{generate_columns.join(" ")} \n" +
     rows_and_cells
+  end
 
-
-    # "A #{rendered_cells[0..cells_per_row].join("")}\n" +
-    # "B #{rendered_cells[next_row..(next_row + cells_per_row)].join("")}\n" +
-    # "C #{rendered_cells[8..11].join("")}\n" +
-    # "D #{rendered_cells[12..15].join("")}\n"
+  def render(ship_display = false)
+    "  #{generate_columns.join(" ")} \n" +
+    render_rows_and_cells(ship_display)
   end
 
 end
