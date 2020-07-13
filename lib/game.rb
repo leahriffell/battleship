@@ -1,7 +1,6 @@
 require "./lib/player"
 require "./lib/turn"
 
-
 class Game
   attr_reader :human_player, :computer_player, :turn
 
@@ -24,13 +23,18 @@ class Game
     end
   end
 
+  def game_over
+    @computer_player.ships.all? {|ship| p ship.health == 0} && @human_player.ships.all? {|ship| p ship.health == 0}
+  end
+
   def start_game
     @computer_player.randomly_place_cruiser
     @computer_player.randomly_place_submarine
     @human_player.let_human_place_cruiser
     @human_player.let_human_place_submarine
-    
-    10.times do 
+
+    # switch to loop through until game over
+    10.times do
       @turn.human_shot
       @turn.computer_shot
     end

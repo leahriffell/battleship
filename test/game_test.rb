@@ -25,4 +25,10 @@ class GameTest < MiniTest::Test
     assert_equal true, game.computer_player.has_board?
   end
 
+  def test_it_can_end_game
+    game = Game.new
+
+    game.game_over
+  end
+
 end
