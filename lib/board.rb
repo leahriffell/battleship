@@ -1,9 +1,13 @@
 require 'pry'
 require "./lib/cell"
+require "./lib/game"
+
 
 class Board
   attr_reader :cells
-  def initialize
+  def initialize(columns = 4, rows = 4)
+  @columns = columns
+  @rows = rows
   @cells = {}
   generate_board_columns_and_rows # call method to generate cell for board.
   end
@@ -91,7 +95,7 @@ class Board
       end
     end
   end
-#--------------------
+
   def rendered_cells(ship_display = false)
     rendered_cells = []
     @cells.each do |coordinate, cell_instance|

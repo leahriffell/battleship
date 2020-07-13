@@ -4,10 +4,12 @@ require "./lib/board"
 class Player
 attr_reader :type, :ships, :board
 
-  def initialize(type)
+  def initialize(type, num_columns = 4, num_rows = 4)
   @type = type
   @ships = []
   @board = board
+  @num_columns = num_columns
+  @num_rows = num_rows
   # @human_ships = []
   # @computer_ships = []
   generate_ships
@@ -20,7 +22,7 @@ attr_reader :type, :ships, :board
   end
 
   def assign_board
-  @board = Board.new
+  @board = Board.new(@num_columns, @num_rows)
   end
 
   def has_board?
