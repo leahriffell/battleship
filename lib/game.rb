@@ -16,6 +16,8 @@ class Game
 
     if prompt_response == "P"
       place_ships
+      play_turns
+      display_winner
     elsif prompt_response == "Q"
       quit_game
     else
@@ -23,8 +25,8 @@ class Game
     end
   end
 
-  def game_over
-    @computer_player.ships.all? {|ship| ship.health == 0} && @human_player.ships.all? {|ship| ship.health == 0}
+  def game_over?
+    @computer_player.ships.all? {|ship| ship.health == 0} || @human_player.ships.all? {|ship| ship.health == 0}
   end
 
   def place_ships
@@ -35,9 +37,19 @@ class Game
   end
 
   def play_turns
-    10.times do
+    until game_over? == true
       @turn.human_shot
       @turn.computer_shot
+    end
+  end
+
+  def display_winner
+    if game_over? == true
+      if @computer_player.ships.all? {|ship| ship.health == 0}
+        puts "You won!"
+      else @human_player.ships.all? {|ship| ship.health == 0}
+        puts "I won!"
+      end
     end
   end
 
