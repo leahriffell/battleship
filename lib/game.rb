@@ -25,7 +25,7 @@ class Game
       play_turns
       display_winner
     elsif prompt_response == "Q"
-      quit_game
+      exit
     else
       p "Please type P to Start or Q to quit"
     end
@@ -58,8 +58,5 @@ class Game
       end
     end
   end
-
-  def quit_game
-    p "Quit method started"
-  end
+  
 end
