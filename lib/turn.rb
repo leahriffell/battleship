@@ -17,7 +17,7 @@ class Turn
   def human_shot
     puts "Enter the coordinate for your shot:"
     shot_placement = gets.chomp.upcase.to_s
-    until @computer.board.valid_coordinate?(shot_placement) == true && @computer.board.cells[shot_placement].fired_upon? == false 
+    until @computer.board.valid_coordinate?(shot_placement) == true && @computer.board.cells[shot_placement].fired_upon? == false
       if @computer.board.valid_coordinate?(shot_placement) == true && @computer.board.cells[shot_placement].fired_upon? == true
           puts "You have already fired upon this coordinate. Please enter a different one."
           shot_placement = gets.chomp.upcase
@@ -28,13 +28,12 @@ class Turn
     end
     @computer.board.cells[shot_placement].fire_upon
     display_human_shot_results(shot_placement)
-    binding.pry
   end
 
   def computer_shot
       shot_placement = @human.board.cells.keys.sample(1).join
       @human.board.valid_coordinate?(shot_placement) == true && @human.board.cells[shot_placement].fired_upon? == false
-      
+
       @human.board.cells[shot_placement].fire_upon
       display_computer_shot_results(shot_placement)
   end
@@ -57,13 +56,12 @@ class Turn
     else @human.board.cells[shot_placement].empty? == false
       puts "My shot on #{shot_placement} was a hit."
     end
-    # binding.pry
   end
 
   #### ------ proofing methods
   def test_shot(test_shot)
     @computer.board.cells[test_shot].fire_upon
-  end 
+  end
 
 end
 

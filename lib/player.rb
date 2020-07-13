@@ -65,7 +65,7 @@ attr_reader :type, :ships, :board
   end
 
   def let_human_place_cruiser
-    puts "I have laid out my ships on the grid. \nYou now need to lay out your two ships. \nThe Cruiser is three units long and the marine is two units long."
+    puts "I have laid out my ships on the grid. \nYou now need to lay out your two ships. \nThe Cruiser is three units long and the submarine is two units long."
     puts @board.render
     puts "Enter the squares for the Cruiser (3 spaces):"
     desired_placement = gets.chomp.upcase.split
