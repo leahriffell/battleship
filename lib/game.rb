@@ -44,6 +44,7 @@ class Game
 
   def play_turns
     until game_over? == true
+      puts @turn.display_boards
       @turn.human_shot
       @turn.computer_shot
     end
@@ -58,5 +59,5 @@ class Game
       end
     end
   end
-  
+
 end
