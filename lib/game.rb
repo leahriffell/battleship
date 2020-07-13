@@ -15,25 +15,26 @@ class Game
     prompt_response = gets.chomp.upcase
 
     if prompt_response == "P"
-      start_game  ### Needs method
+      place_ships
     elsif prompt_response == "Q"
-      quit_game ### Needs method
+      quit_game
     else
       p "Please type P to Start or Q to quit"
     end
   end
 
   def game_over
-    @computer_player.ships.all? {|ship| p ship.health == 0} && @human_player.ships.all? {|ship| p ship.health == 0}
+    @computer_player.ships.all? {|ship| ship.health == 0} && @human_player.ships.all? {|ship| ship.health == 0}
   end
 
-  def start_game
+  def place_ships
     @computer_player.randomly_place_cruiser
     @computer_player.randomly_place_submarine
     @human_player.let_human_place_cruiser
     @human_player.let_human_place_submarine
+  end
 
-    # switch to loop through until game over
+  def play_turns
     10.times do
       @turn.human_shot
       @turn.computer_shot
