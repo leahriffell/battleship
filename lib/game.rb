@@ -25,6 +25,7 @@ class Game
       play_turns
       display_winner
     elsif prompt_response == "Q"
+      puts "Thanks for playing!"
       exit
     else
       p "Please type P to Start or Q to quit"
@@ -53,7 +54,7 @@ class Game
 
   def display_winner
     if game_over? == true
-      # same code that we used above to determine if game over 
+      # same code that we used above to determine if game over
       if @computer_player.ships.all? {|ship| ship.health == 0}
         puts "You won!"
       else @human_player.ships.all? {|ship| ship.health == 0}
