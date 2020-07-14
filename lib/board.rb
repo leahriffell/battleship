@@ -4,20 +4,20 @@ require "./lib/game"
 
 
 class Board
-  attr_reader :cells
-  def initialize(columns = 4, rows = 4)
-  @columns = columns
-  @rows = rows
-  @cells = {}
-  generate_board_columns_and_rows # call method to generate cell for board.
+  attr_reader :cells, :num_columns, :num_rows
+  def initialize(num_columns, num_rows)
+    @num_columns = num_columns
+    @num_rows = num_rows
+    @cells = {}
+    generate_board_columns_and_rows # call method to generate cell for board.
   end
 
   def generate_rows
-    ("A".."D").to_a
+    ("A"..num_rows).to_a
   end
 
   def generate_columns
-    ("1".."4").to_a
+    ("1"..num_columns).to_a
   end
 
   def generate_board_columns_and_rows

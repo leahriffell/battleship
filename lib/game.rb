@@ -2,17 +2,14 @@ require "./lib/player"
 require "./lib/turn"
 
 class Game
-  attr_reader :human_player, :computer_player, :turn
+  attr_reader :human_player, :computer_player, :turn, :num_columns, :num_rows
 
-  def initialize
-    @human_player = Player.new("Human", num_columns= 4, num_rows= 4)
-    @computer_player = Player.new("Computer", num_columns = @human_player.num_columns, num_rows = @human_player.num_rows)
+  def initialize(num_columns, num_rows)
+    @num_columns = num_columns
+    @num_rows = num_rows
+    @human_player = Player.new("Human", num_columns, num_rows)
+    @computer_player = Player.new("Computer", num_columns, num_rows)
     @turn = Turn.new(@human_player, @computer_player)
-  end
-
-  def get_desired_columns
-    puts "Enter number of columns you want: "
-    gets.chomp.to_i
   end
 
   def play_the_game
@@ -26,7 +23,6 @@ class Game
     prompt_response = gets.chomp.upcase
 
     if prompt_response == "P"
-      get_desired_columns
       place_ships
       play_turns
       display_winner
