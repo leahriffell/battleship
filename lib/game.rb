@@ -5,8 +5,8 @@ class Game
   attr_reader :human_player, :computer_player, :turn, :num_columns, :num_rows
 
   def initialize(num_columns, num_rows)
-    @num_columns = num_columns
-    @num_rows = num_rows
+    # @num_columns = num_columns
+    # @num_rows = num_rows
     @human_player = Player.new("Human", num_columns, num_rows)
     @computer_player = Player.new("Computer", num_columns, num_rows)
     @turn = Turn.new(@human_player, @computer_player)

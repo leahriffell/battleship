@@ -9,19 +9,19 @@ require "pry"
 
 class BoardTest < Minitest::Test
   def test_it_exists
-    board = Board.new
+    board = Board.new("4", "4")
     assert_instance_of Board, board
   end
 
   def test_it_has_readable_cells
-    board = Board.new
+    board = Board.new("4", "4")
     board.generate_board_columns_and_rows
 
     board.cells
   end
 
   def test_it_has_valid_coordinates
-    board = Board.new
+    board = Board.new("4", "4")
     board.generate_board_columns_and_rows
 
 
@@ -31,7 +31,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_placement_has_equal_length_and_coordinates
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
@@ -41,7 +41,7 @@ class BoardTest < Minitest::Test
 
   def test_placement_has_consecutive_coordinates
     # skip
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
@@ -53,7 +53,7 @@ class BoardTest < Minitest::Test
 
   def test_placement_does_not_have_diagonal_coordinates
     # skip
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
@@ -63,7 +63,7 @@ class BoardTest < Minitest::Test
 
   def test_placement_is_valid
     # skip
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
@@ -73,7 +73,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_ship_belongs_to_multiple_cells
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
 
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -89,7 +89,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_no_overlapping_ships
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
 
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -100,7 +100,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_render
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
 
     board.place(cruiser, ["A1", "A2", "A3"])
@@ -108,11 +108,12 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_render_with_ships_showing
-    board = Board.new
+    board = Board.new("4", "4")
     cruiser = Ship.new("Cruiser", 3)
 
     board.place(cruiser, ["A1", "A2", "A3"])
     assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", board.render(true)
+    # binding.pry
   end
 
 end

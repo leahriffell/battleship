@@ -13,7 +13,8 @@ class Board
   end
 
   def generate_rows
-    ("A"..num_rows).to_a
+    # ("A"..num_rows).to_a
+    ("A"..(("A".ord + num_rows.to_i)-1).chr).to_a
   end
 
   def generate_columns
@@ -109,7 +110,7 @@ class Board
   end
 
   def cells_per_row
-    ((rendered_cells.length / generate_rows.length) - 1).to_i
+    (rendered_cells.length / generate_rows.length).to_i
   end
 
   def render_rows_and_cells(ship_display = false)
@@ -120,6 +121,7 @@ class Board
       index = cells_per_row + 1
     end
     rows_and_cells
+    # binding.pry
   end
 
   def render(ship_display = false)
