@@ -119,10 +119,9 @@ class Board
     rows_and_cells = ""
     generate_rows.each do |row|
       rows_and_cells << "#{row} #{rendered_cells(ship_display)[index..(index + cells_per_row - 1)].join("")}\n"
-      index = cells_per_row 
+      index += cells_per_row
     end
     rows_and_cells
-    # binding.pry
   end
 
   def render(ship_display = false)

@@ -36,7 +36,6 @@ class Game
 
   def play_the_game
     place_ships
-  binding.pry
     play_turns
     display_winner
   end
