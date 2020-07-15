@@ -2,16 +2,16 @@ require "./lib/ship"
 require "./lib/board"
 
 class Player
-attr_reader :type, :ships, :board
+attr_reader :type, :ships, :board, :num_columns, :num_rows
 
-  def initialize(type)
-  @type = type
-  @ships = []
-  @board = board
-  # @human_ships = []
-  # @computer_ships = []
-  generate_ships
-  assign_board
+  def initialize(type, num_columns, num_rows)
+    @type = type
+    @ships = []
+    @board = board
+    @num_columns = num_columns
+    @num_rows = num_rows
+    generate_ships
+    assign_board
   end
 
   def generate_ships
@@ -20,7 +20,7 @@ attr_reader :type, :ships, :board
   end
 
   def assign_board
-  @board = Board.new
+  @board = Board.new(@num_columns, @num_rows)
   end
 
   def has_board?

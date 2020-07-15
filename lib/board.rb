@@ -1,24 +1,27 @@
 require 'pry'
 require "./lib/cell"
+require "./lib/game"
+
 
 class Board
-  attr_reader :cells
-  def initialize
-  @cells = {}
-  generate_board_columns_and_rows # call method to generate cell for board.
+  attr_reader :cells, :num_columns, :num_rows
+  def initialize(num_columns, num_rows)
+    @num_columns = num_columns
+    @num_rows = num_rows
+    @cells = {}
+    generate_board_columns_and_rows # call method to generate cell for board.
   end
 
   def generate_rows
-    ("A".."D").to_a
+    # ("A"..num_rows).to_a
+    ("A"..(("A".ord + num_rows.to_i)-1).chr).to_a
   end
 
   def generate_columns
-    ("1".."4").to_a
+    ("1"..num_columns).to_a
   end
 
   def generate_board_columns_and_rows
-    generate_rows
-    generate_columns
     coordinates = []
 
     generate_rows.each do |row|
@@ -27,7 +30,9 @@ class Board
         end
     end
 
-    @cells = Hash[coordinates.collect { |coordinate| [coordinate, Cell.new(coordinate)] } ]
+    coordinates.each do |coord|
+      @cells[coord] = Cell.new(coord)
+    end
   end
 
   def valid_coordinate?(coordinate)
@@ -92,38 +97,36 @@ class Board
     end
   end
 
-  def render(ship_display = false)
-    # This rendering of cells array could be a helper method
-    rendered_cells = []
+  def rendered_cells(ship_display = false)
+    rend_cells = []
+
     @cells.each do |coordinate, cell_instance|
       if ship_display
-        rendered_cells << "#{cell_instance.render(true)} "
+        rend_cells << "#{cell_instance.render(true)} "
       else
-        rendered_cells << "#{cell_instance.render} "
+        rend_cells << "#{cell_instance.render} "
       end
     end
-
-    # At this point, columns AND cells within the columns are not dynamic
-    "  #{generate_columns.join(" ")} \n" +
-    "A #{rendered_cells[0..3].join("")}\n" +
-    "B #{rendered_cells[4..7].join("")}\n" +
-    "C #{rendered_cells[8..11].join("")}\n" +
-    "D #{rendered_cells[12..15].join("")}\n"
+    rend_cells
   end
 
-# Nico and Melvin's session work
-#   def render(ship_display = false)
-#   column = 1
-#   @cells.each_slice(4).to_a.transpose.reduce(”  A B C D”) do |state, cell_group|
-#     x = cell_group.map do |key, value|
-#       if ship_display == true
-#         value.render(true)
-#       else
-#         value.render
-#       end
-#     end
-#     y = “\n#{column} #{x.join(' ’)}”
-#     column += 1
-#     state = state + y
-#   end.concat(” \n”)
+  def cells_per_row
+    (rendered_cells.length / generate_rows.length).to_i
+  end
+
+  def render_rows_and_cells(ship_display = false)
+    index = 0
+    rows_and_cells = ""
+    generate_rows.each do |row|
+      rows_and_cells << "#{row} #{rendered_cells(ship_display)[index..(index + cells_per_row - 1)].join("")}\n"
+      index += cells_per_row
+    end
+    rows_and_cells
+  end
+
+  def render(ship_display = false)
+    "  #{generate_columns.join(" ")} \n" +
+    render_rows_and_cells(ship_display)
+  end
+
 end
