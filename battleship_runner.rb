@@ -7,3 +7,5 @@ num_rows = gets.chomp.upcase
 
 game = Game.new(num_columns, num_rows)
 game.play_the_game
+
+## refactor to get the user input in one time

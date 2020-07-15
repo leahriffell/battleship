@@ -31,7 +31,7 @@ class Cell
     @fired_upon
   end
 
-  def render(ship_display = false)
+  def render(ship_display = false) ## => candidate for refactoring
     if ship_display == true
       if @ship != nil
       "S"

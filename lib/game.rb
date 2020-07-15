@@ -10,6 +10,8 @@ class Game
     @human_player = Player.new("Human", num_columns, num_rows)
     @computer_player = Player.new("Computer", num_columns, num_rows)
     @turn = Turn.new(@human_player, @computer_player)
+    @computer_player.randomly_place_cruiser
+    @computer_player.randomly_place_submarine
   end
 
   def play_the_game
@@ -22,10 +24,8 @@ class Game
     puts "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
     prompt_response = gets.chomp.upcase
 
-    if prompt_response == "P"
-      place_ships
-      play_turns
-      display_winner
+    if prompt_response == "P" ## split the following methods
+      play_the_game
     elsif prompt_response == "Q"
       puts "Thanks for playing!"
       exit
@@ -34,15 +34,20 @@ class Game
     end
   end
 
+  def play_the_game
+    place_ships
+  binding.pry
+    play_turns
+    display_winner
+  end
+
   def game_over?
     # maybe have helper method b/c both sides of or statements are very similar (just calling on different player objects)
     @computer_player.ships.all? {|ship| ship.health == 0} || @human_player.ships.all? {|ship| ship.health == 0}
   end
 
   def place_ships
-    @computer_player.randomly_place_cruiser
-    @computer_player.randomly_place_submarine
-    @human_player.let_human_place_cruiser
+    @human_player.let_human_place_cruiser #tweak these so gets chomp and render are separated
     @human_player.let_human_place_submarine
   end
 

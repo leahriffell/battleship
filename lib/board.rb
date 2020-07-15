@@ -22,8 +22,6 @@ class Board
   end
 
   def generate_board_columns_and_rows
-    generate_rows
-    generate_columns
     coordinates = []
 
     generate_rows.each do |row|
@@ -32,7 +30,9 @@ class Board
         end
     end
 
-    @cells = Hash[coordinates.collect { |coordinate| [coordinate, Cell.new(coordinate)] } ]
+    coordinates.each do |coord|
+      @cells[coord] = Cell.new(coord)
+    end
   end
 
   def valid_coordinate?(coordinate)
@@ -98,15 +98,16 @@ class Board
   end
 
   def rendered_cells(ship_display = false)
-    rendered_cells = []
+    rend_cells = []
+
     @cells.each do |coordinate, cell_instance|
       if ship_display
-        rendered_cells << "#{cell_instance.render(true)} "
+        rend_cells << "#{cell_instance.render(true)} "
       else
-        rendered_cells << "#{cell_instance.render} "
+        rend_cells << "#{cell_instance.render} "
       end
     end
-    rendered_cells
+    rend_cells
   end
 
   def cells_per_row
@@ -117,8 +118,8 @@ class Board
     index = 0
     rows_and_cells = ""
     generate_rows.each do |row|
-      rows_and_cells << "#{row} #{rendered_cells(ship_display)[index..(index + cells_per_row)].join("")}\n"
-      index = cells_per_row + 1
+      rows_and_cells << "#{row} #{rendered_cells(ship_display)[index..(index + cells_per_row - 1)].join("")}\n"
+      index = cells_per_row 
     end
     rows_and_cells
     # binding.pry
