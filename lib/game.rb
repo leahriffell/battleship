@@ -2,19 +2,17 @@ require "./lib/player"
 require "./lib/turn"
 
 class Game
-  attr_reader :human_player, :computer_player, :turn, :num_columns, :num_rows
+  attr_reader :num_columns, :num_rows, :human_player, :computer_player
 
-  def initialize(num_columns, num_rows)
-    # @num_columns = num_columns
-    # @num_rows = num_rows
-    @human_player = Player.new("Human", num_columns, num_rows)
-    @computer_player = Player.new("Computer", num_columns, num_rows)
-    @turn = Turn.new(@human_player, @computer_player)
-    @computer_player.randomly_place_cruiser
-    @computer_player.randomly_place_submarine
+  def initialize
+    @num_columns = "4"
+    @num_rows = "4"
+    @human_player = Player.new("Human", @num_columns, @num_rows)
+    @computer_player = Player.new("Computer", @num_columns, @num_rows)
   end
 
-  def play_the_game
+
+  def start_the_game
     loop do
       display_welcome_message
     end
@@ -34,7 +32,32 @@ class Game
     end
   end
 
+  def get_num_of_columns
+    puts "Enter the number of columns that you want on the board"
+    @num_columns = gets.chomp
+    @num_columns
+  end
+
+  def get_num_of_rows
+    puts "Enter the number of rows that you want on the board"
+    @num_rows = gets.chomp.upcase
+    @num_rows
+  end
+
+  def create_human_player
+    @human_player = Player.new("Human", @num_columns, @num_rows)
+  end
+
+  def create_computer_player
+    @computer_player = Player.new("Computer", @num_columns, @num_rows)
+  end
+
   def play_the_game
+    get_num_of_rows
+    get_num_of_columns
+    create_human_player
+    create_computer_player
+    @turn = Turn.new(@human_player, @computer_player)
     place_ships
     play_turns
     display_winner
@@ -46,7 +69,9 @@ class Game
   end
 
   def place_ships
-    @human_player.let_human_place_cruiser #tweak these so gets chomp and render are separated
+    @computer_player.randomly_place_cruiser
+    @computer_player.randomly_place_submarine
+    @human_player.let_human_place_cruiser
     @human_player.let_human_place_submarine
   end
 
