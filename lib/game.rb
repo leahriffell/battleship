@@ -35,13 +35,11 @@ class Game
   def get_num_of_columns
     puts "Enter the number of columns that you want on the board"
     @num_columns = gets.chomp
-    @num_columns #redundant 
   end
 
   def get_num_of_rows
     puts "Enter the number of rows that you want on the board"
     @num_rows = gets.chomp.upcase
-    @num_rows
   end
 
   def create_human_player
