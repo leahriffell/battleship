@@ -1,10 +1,10 @@
 require 'pry'
-require "./lib/cell"
-require "./lib/game"
-
+require './lib/cell'
+require './lib/game'
 
 class Board
   attr_reader :cells, :num_columns, :num_rows
+
   def initialize(num_columns, num_rows)
     @num_columns = num_columns
     @num_rows = num_rows
@@ -13,21 +13,22 @@ class Board
   end
 
   def generate_rows
-    # ("A"..num_rows).to_a
-    ("A"..(("A".ord + num_rows.to_i)-1).chr).to_a
+    # ('A'..num_rows).to_a
+    ('A'..(('A'.ord + num_rows.to_i)-1).chr).to_a
   end
 
   def generate_columns
-    ("1"..num_columns).to_a
+    ('1'..num_columns).to_a
   end
 
   def generate_board_columns_and_rows
     coordinates = []
 
     generate_rows.each do |row|
-        generate_columns.each do |column| column.to_s
-        coordinates <<  "#{row}#{column}"
-        end
+      generate_columns.each do |column| 
+        column.to_s
+        coordinates << "#{row}#{column}"
+      end
     end
 
     coordinates.each do |coord|
@@ -40,13 +41,13 @@ class Board
   end
 
   def consecutive_columns?(coordinates)
-    coordinate_columns = coordinates.map {|coordinate| coordinate[0]}
+    coordinate_columns = coordinates.map { |coordinate| coordinate[0] }
     column_range = (coordinate_columns[0]..coordinate_columns[-1]).to_a
     coordinate_columns == column_range
   end
 
   def consecutive_rows?(coordinates)
-    coordinate_rows = coordinates.map {|coordinate| coordinate[-1]}
+    coordinate_rows = coordinates.map { |coordinate| coordinate[-1] }
     row_range = (coordinate_rows[0]..coordinate_rows[-1]).to_a
     coordinate_rows == row_range
   end
@@ -57,7 +58,7 @@ class Board
 
   def no_overlap?(coordinates)
     coordinates.all? do |coordinate|
-      if @cells[coordinate] == nil
+      if @cells[coordinate].nil?
         false
       else
         @cells[coordinate].empty?
@@ -90,7 +91,7 @@ class Board
   end
 
   def place(ship_type, coordinates)
-    if valid_placement?(ship_type, coordinates) == true
+    if valid_placement?(ship_type, coordinates)
       coordinates.map do |coordinate|
         @cells[coordinate].place_ship(ship_type)
       end
@@ -99,12 +100,11 @@ class Board
 
   def rendered_cells(ship_display = false)
     rend_cells = []
-
-    @cells.each do |coordinate, cell_instance|
+    @cells.each do |cell|
       if ship_display
-        rend_cells << "#{cell_instance.render(true)} "
+        rend_cells << "#{cell[1].render(true)} "
       else
-        rend_cells << "#{cell_instance.render} "
+        rend_cells << "#{cell[1].render} "
       end
     end
     rend_cells
@@ -116,17 +116,16 @@ class Board
 
   def render_rows_and_cells(ship_display = false)
     index = 0
-    rows_and_cells = ""
+    rows_and_cells = ''
     generate_rows.each do |row|
-      rows_and_cells << "#{row} #{rendered_cells(ship_display)[index..(index + cells_per_row - 1)].join("")}\n"
+      rows_and_cells << "#{row} #{rendered_cells(ship_display)[index..(index + cells_per_row - 1)].join('')}\n"
       index += cells_per_row
     end
     rows_and_cells
   end
 
   def render(ship_display = false)
-    "  #{generate_columns.join(" ")} \n" +
-    render_rows_and_cells(ship_display)
+    "  #{generate_columns.join(' ')} \n" +
+      render_rows_and_cells(ship_display)
   end
-
 end
