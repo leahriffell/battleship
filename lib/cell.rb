@@ -24,18 +24,6 @@ class Cell
     @fired_upon
   end
 
-  def miss
-    @fired_upon && @ship.nil?
-  end
-
-  def sunk
-    @fired_upon && !@ship.nil? && @ship.sunk?
-  end
-
-  def hit
-    @fired_upon && !@ship.nil?
-  end
-
   def render(ship_display = false)
     if ship_display
       empty? ? '.' : 'S'
@@ -50,5 +38,19 @@ class Cell
         '.'
       end
     end
+  end
+
+  private
+
+  def miss
+    @fired_upon && @ship.nil?
+  end
+
+  def sunk
+    @fired_upon && !@ship.nil? && @ship.sunk?
+  end
+
+  def hit
+    @fired_upon && !@ship.nil?
   end
 end
