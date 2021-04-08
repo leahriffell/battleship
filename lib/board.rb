@@ -9,23 +9,22 @@ class Board
     @num_columns = num_columns
     @num_rows = num_rows
     @cells = {}
-    generate_board_columns_and_rows # call method to generate cell for board.
+    generate_cells
   end
 
   def generate_rows
-    # ('A'..num_rows).to_a
-    ('A'..(('A'.ord + num_rows.to_i)-1).chr).to_a
+    ('A'..(('A'.ord + num_rows.to_i) - 1).chr).to_a
   end
 
   def generate_columns
     ('1'..num_columns).to_a
   end
 
-  def generate_board_columns_and_rows
+  def generate_cells
     coordinates = []
 
     generate_rows.each do |row|
-      generate_columns.each do |column| 
+      generate_columns.each do |column|
         column.to_s
         coordinates << "#{row}#{column}"
       end
@@ -63,7 +62,6 @@ class Board
       else
         @cells[coordinate].empty?
       end
-      # @cells[coordinate].empty?
     end
   end
 
